@@ -59,7 +59,7 @@ export default function GlobalState(props) {
         localStorage.setItem('pokedex', JSON.stringify(pokedex))
     }
 
-    const showDetails = (navigate,newPokemon) =>{
+    const showDetails = (newPokemon) =>{
         const verificarPokemon = pokedex.find((pokemon) =>
             pokemon.name === newPokemon.name
         )
@@ -67,7 +67,7 @@ export default function GlobalState(props) {
             const newPokedex = [...pokedex, newPokemon]
             setDetails(newPokedex)
         }  
-        goToDetails(navigate,newPokemon.id)
+        
     }
 
     // return imagens Card pokemon 

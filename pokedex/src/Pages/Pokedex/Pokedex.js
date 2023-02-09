@@ -6,7 +6,6 @@ import HeaderSimple from "../../Components/Header/index";
 import { ContainerHome } from "./style";
 import { useContext } from 'react';
 import { GlobalContext } from "../../GlobalContext/GlobalContext";
-import { useEffect } from 'react';
 
 
 export default function PokedexPage() {

@@ -34,7 +34,6 @@ export const PokemonNumber = styled.p`
   font-weight: 600;
   margin-bottom: 15px;  
   text-align: left;  
-
 `;
 
 export const PokemonName = styled.h1`

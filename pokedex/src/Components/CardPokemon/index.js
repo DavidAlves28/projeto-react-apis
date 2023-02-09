@@ -19,7 +19,8 @@ import { BASE_URL } from './../../Constants/BASE_URL';
 import axios from 'axios'
 import { getTypes } from './../../utils/returnTypes';
 import Modal from './../Modal';
-import { goToDetails} from './../../routes/coordinator';
+import { goToDetails } from './../../routes/coordinator';
+
 
 export default function Card(props) {
   const location = useLocation()
@@ -83,7 +84,7 @@ export default function Card(props) {
               (<CatchButton onClick={() => removePokemon(dataPokemon)}>
                 Remover da Pokedex
               </CatchButton>)}
-            <Details onClick={()=>{showDetails(navigate,dataPokemon)}}>Detalhes</Details>
+            <Details onClick={()=>{goToDetails(navigate,dataPokemon.name)}}>Detalhes</Details>
           </ContainerPoke>
         )}
 
