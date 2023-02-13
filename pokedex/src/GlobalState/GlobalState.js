@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { GlobalContext } from "../GlobalContext/GlobalContext";
 import { BASE_URL } from '../Constants/BASE_URL'
 import axios from 'axios'
-import { Button, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react"
-import Modal from "../Components/Modal";
-import { goToDetails } from './../routes/coordinator';
+import { useDisclosure } from "@chakra-ui/react";
+
 
 export default function GlobalState(props) {
     // ARRAY DOS POKEMONS DA API
@@ -12,9 +11,10 @@ export default function GlobalState(props) {
     // ARRAY PARA POKEMONS DA POKEDEX ADD
     const [pokedex, setPokedex] = useState([])  
     const [details,setDetails] = useState({})
+    // const [nextPage,setNextPage] = useState(false)
     // Modal para adicionar pokemon
-    const [isOpenModal, setIsOpenModal] = useState(false)
-    
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [openModal , setOpenModal] = useState(false)
     // icone para loading
     const [isLoading, setIsLoading] = useState(true)
 
@@ -22,9 +22,11 @@ export default function GlobalState(props) {
     const getPokemonsUrl = async () => {
 
         try {
-            const response = await axios.get(`${BASE_URL}/pokemon/?offset=0&limit=20`)
+            const response = await axios.get(`${BASE_URL}/pokemon/?100=0&limit=21`)
             setListaPokemon(response.data.results);
+            setIsLoading(false)
         } catch (error) {
+            setIsLoading(true)
             alert('Erro ao buscar lista de pokemons')
         }
     }
@@ -40,13 +42,14 @@ export default function GlobalState(props) {
     //  Adiciona pokemon a pokedex , verifica duplicidade!
     const addPokedex = (newPokemon) => {
         const verificarPokemon = pokedex.find((pokemon) =>
-            pokemon.name === newPokemon.name
+        pokemon.name === newPokemon.name
         )
         if (!verificarPokemon) {
             const newPokedex = [...pokedex, newPokemon]
             setPokedex(newPokedex)
-        }        
-        setIsOpenModal(true)
+        }  
+             
+        onOpen()
        
     }
     //  Remove pokemon da pokedex
@@ -55,8 +58,16 @@ export default function GlobalState(props) {
             pokemonInPokedex.id !== deletePokemon.id
         )
         setPokedex(newPokedex)
-       
-        localStorage.setItem('pokedex', JSON.stringify(pokedex))
+        onOpen()
+      
+    }
+     //  Remove pokemon da pokedex pela page Details
+     const removePokemonDetails = (deletePokemon) => {
+        const newPokedex = pokedex.filter((pokemonInPokedex) =>
+        pokemonInPokedex.name !== deletePokemon
+    )
+    setPokedex(newPokedex)
+    onOpen()
     }
 
     const showDetails = (newPokemon) =>{
@@ -68,22 +79,8 @@ export default function GlobalState(props) {
             setDetails(newPokedex)
         }  
         
-    }
+    }    
 
-    // return imagens Card pokemon 
-    const returnImagens = (pokemon) => {
-        const imagens0_9 = `https://www.serebii.net/swordshield/pokemon/00${pokemon.id}.png`
-        const imagens10_99 = `https://www.serebii.net/swordshield/pokemon/0${pokemon.id}.png`
-        const imagens = `https://www.serebii.net/swordshield/pokemon/${pokemon.id}.png`
-        if (pokemon.id < 10) {
-            return imagens0_9
-        } else if (pokemon.id > 9) {
-            return imagens10_99
-        } else {
-            return imagens
-        }
-    }
-    
 
     
     useEffect(() => {
@@ -94,16 +91,20 @@ export default function GlobalState(props) {
         listaPokemon: listaPokemon,
         pokedex: pokedex,
         addPokedex: addPokedex,
-        removePokemon: removePokemon,
-        returnImagens: returnImagens,
+        removePokemon: removePokemon,       
         isLoading: isLoading,
         filterPokedex: filterPokedex,
-        setPokedex: setPokedex,
-        setIsOpenModal:setIsOpenModal,
-        isOpenModal:isOpenModal,
+        setPokedex: setPokedex,        
         details:details,
         setDetails: setDetails,
-        showDetails:showDetails
+        showDetails:showDetails,
+        onOpen: onOpen,
+        isOpen:isOpen,
+        onClose:onClose,
+        openModal:openModal,
+        setOpenModal:setOpenModal,
+        removePokemonDetails:removePokemonDetails
+
     }
     return (
         <GlobalContext.Provider value={context} >

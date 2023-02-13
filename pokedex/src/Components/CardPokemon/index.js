@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext} from "react";
 import {
   CardPokemon,
   CatchButton,
@@ -8,7 +8,7 @@ import {
   PokemonName,
   Pokemon,
   PokemonType,
-  Pokeball, Details
+  Pokeball, Details, ButtonRemove
 } from "./style";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
@@ -16,50 +16,32 @@ import { getColors } from "../../utils/returnColors";
 import pokeball from '../../assets/imagem/pngwing2.png'
 import { GlobalContext } from "../../GlobalContext/GlobalContext";
 import { BASE_URL } from './../../Constants/BASE_URL';
-import axios from 'axios'
 import { getTypes } from './../../utils/returnTypes';
-import Modal from './../Modal';
 import { goToDetails } from './../../routes/coordinator';
+import { useRequestData } from "../../hooks/useRequestData";
+
 
 
 export default function Card(props) {
+  // location é usado para rotornar o nome da page para redenrizar os buttons do card.
   const location = useLocation()
+
+  // navigate para enviar o parametro da função para ir para páginas.
   const navigate = useNavigate()
+
   // GlobalContext
   const context = useContext(GlobalContext)
   //  context 
-  const { addPokedex, removePokemon, returnImagens, isLoading,showDetails} = context
-  const { pokemon } = props
-  // estado para todos os dados dos pokemons.
-  const [dataPokemon, setDataPokemon] = useState({})
-  // estado para os types dos pokemons.
-  const [types, setTypes] = useState([])
+  const { addPokedex, removePokemon, isLoading} = context;
+  // props retorna pokemon, que será passado como parâmetro no hook useRequestData  
+  const { pokemon } = props ;
 
-  // API get data dos pokemons
-  const {isOpenModal,setIsOpenModal} = useState(false)
-  const getDataPokemon = async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}/pokemon/${pokemon.name}`)
-      setDataPokemon(response.data);
-      setTypes(response.data.types)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  // retorna tag com o  type do pokemon.
-  const getDataTypes = types.map((type, index) => {
-    return <PokemonType key={index} src={getTypes(type.type.name)} alt='' />
-  })
-  // retorna apenas os nomes dos types.
-  const getNameTypes = types.map((type => type.type.name))
-  useEffect(() => {
-    getDataPokemon()
-  }, [])
+  
+  // Custom Hook que retorna os dados do pokemons.
+  const [data, types,] = useRequestData(`${BASE_URL}/pokemon/${pokemon.name}`, {})
   
   return (
-    <CardPokemon >
-      {isOpenModal && Modal }
+    <CardPokemon  >      
       {isLoading ? (
         <ContainerPoke> <Spinner
           thickness='4px'
@@ -71,20 +53,28 @@ export default function Card(props) {
       ) :
         (
 
-          <ContainerPoke key={dataPokemon.id} color={getColors(getNameTypes[0])} >
-            <PokemonNumber>#{dataPokemon.id}</PokemonNumber>
-            <PokemonName >{dataPokemon.name} <TypesContainer>
-              {getDataTypes}
+          <ContainerPoke key={data.id} color={types && getColors(types)} >
+           { data.id < 10 ? 
+           <PokemonNumber>#0{data.id}</PokemonNumber> : 
+           <PokemonNumber>#{data.id}</PokemonNumber>}
+
+            <PokemonName >{data.name} <TypesContainer>
+            {data.types?.map((type,index) => {
+                  return <PokemonType key={index} src={getTypes(type.type.name)} />
+                })}
             </TypesContainer></PokemonName>
+
             <Pokeball src={pokeball} />
-            <Pokemon src={returnImagens(dataPokemon)} alt='s' />
-            {location.pathname === '/' ? (<CatchButton onClick={() => addPokedex(dataPokemon) }>
+            <Pokemon src={data.sprites?.other["official-artwork"].front_default} alt='s' />  
+
+            {location.pathname === '/' ? (<CatchButton onClick={() => addPokedex(data) }>
               Capturar!
             </CatchButton>) :
-              (<CatchButton onClick={() => removePokemon(dataPokemon)}>
-                Remover da Pokedex
-              </CatchButton>)}
-            <Details onClick={()=>{goToDetails(navigate,dataPokemon.name)}}>Detalhes</Details>
+              (<ButtonRemove onClick={() => removePokemon(data)}>
+                Excluir
+              </ButtonRemove>)}
+              
+            <Details onClick={()=>{goToDetails(navigate,data.name)}}>Detalhes</Details>
           </ContainerPoke>
         )}
 

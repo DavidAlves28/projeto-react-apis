@@ -1,5 +1,4 @@
 import { Box, Button, Container, Flex, Grid, Heading, Image, Img, Text } from "@chakra-ui/react";
-import { useContext, } from "react";
 import HeaderSimple from "../../Components/Header";
 import { CardDetails, CardTypes, ContainerDetails, ContainerHome, ContainerInfoPokemon, } from "./style";
 import { useParams } from 'react-router-dom';
@@ -8,17 +7,24 @@ import { BASE_URL } from './../../Constants/BASE_URL';
 import { getColors } from './../../utils/returnColors';
 import ProgressBar from './../../Components/ProgressBar/ProgressBar';
 import { getTypes } from './../../utils/returnTypes';
+import { GlobalContext } from "../../GlobalContext/GlobalContext";
+import { useContext } from "react";
+import ModalSimple from "../../Components/Modal/Modal";
 
 
 
-export default function DetailsPage() {  
-  const { id } = useParams()
+export default function DetailsPage() {
+  const context = useContext(GlobalContext)
+  const { isOpen} = context 
+  // retorna id(name) do pokemon,   
+  const { id} = useParams()
   const [data, types,] = useRequestData(`${BASE_URL}/pokemon/${id}`, {})
 
   return (
-    <ContainerHome>
+    <ContainerHome  >
       <HeaderSimple />
-      <ContainerDetails>
+      {isOpen && <ModalSimple />}
+      <ContainerDetails key={data.id} >
         <Heading ml={'2%'} mt={'5%'}  mb={'3%'} size={'2xl'} color={'#fff'}>Detalhes</Heading>
         <Container
           display={'flex'}
@@ -29,6 +35,7 @@ export default function DetailsPage() {
           left={'0px'}
           bg={types && getColors(types)}
           zIndex={3}
+          
         >
           <Flex
             width={'50%'}
@@ -78,8 +85,7 @@ export default function DetailsPage() {
                         fontWeight='400'
                         padding='0 20px'
                         columnGap='4px'
-                        fontSize='14px'
-
+                        fontSize='14px'                         
                       >
                         <Text color='gray.500' gridColumn='1/2'>{stat.stat.name}</Text>
                         <Text justifySelf='flex-end' gridColumn='2/3'>{stat.base_stat}</Text>
@@ -180,5 +186,4 @@ export default function DetailsPage() {
   )
 }
 
-    // <Pokemon
-    //    src={pokemon.sprites?.other?.["official-artwork"]?.["front_default"]}  />
+    

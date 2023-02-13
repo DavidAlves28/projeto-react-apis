@@ -1,17 +1,17 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useLocation, useParams } from "react-router-dom"
 
 export function useRequestData(url, initialState) {
-    const [data, setData] = useState(initialState)
-    const [types, setTypes] = useState(initialState)
+    // Custom hook , criado para retornar dados dos pokemons.
+    // Será usado em CardPokemon e DetailsPage.
+    const [data, setData] = useState(initialState)//Dados do pokemons!
+    const [types, setTypes] = useState(initialState) // Dados somente dos tipos.
+    
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(false)
-    const location = useLocation()
-    const {id} = useParams()
-    const getData=()=>{
-        
- console.log(location.pathname);
+   // Função para consumo API.
+    const getData = () =>{       
+
         axios.get(url)
         .then((res)=>{
             setIsLoading(false)
@@ -23,11 +23,9 @@ export function useRequestData(url, initialState) {
             setError(true)
         })
     }
-    useEffect(() => {
-        if(location.pathname === `/details/${id}`){
-            getData()
-
-        }
-    }, [])
+    useEffect(() => {       
+            getData()       
+    }, )
+    
     return [data, types ,isLoading, error]
 }

@@ -24,7 +24,7 @@ export const ContainerPoke = styled.div`
     flex-wrap: wrap;
   flex-direction:column;
   position: relative;
-  margin: 20px;
+  margin: 30px;
   color: #ffffff;
 `;
 
@@ -119,3 +119,28 @@ bottom: 10px;
 flex: none;
 order: 0;
 flex-grow: 0;`
+
+export const ButtonRemove = styled.button `
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 4px 10px;
+width: 146px;
+height: 38px;
+background: #FF6262;
+border-radius: 8px;
+border: none;
+cursor: pointer;
+position: absolute;
+bottom: 10px;
+right: 22px;
+z-index: 2;
+color: #000;
+
+/* Inside auto layout */
+
+
+
+
+`
