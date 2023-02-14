@@ -5,6 +5,7 @@ export function useRequestData(url, initialState) {
     // Custom hook , criado para retornar dados dos pokemons.
     // Será usado em CardPokemon e DetailsPage.
     const [data, setData] = useState(initialState)//Dados do pokemons!
+    const [stat, setStat] = useState(initialState)//Dados do pokemons!
     const [types, setTypes] = useState(initialState) // Dados somente dos tipos.
     
     const [isLoading, setIsLoading] = useState(true)
@@ -17,6 +18,7 @@ export function useRequestData(url, initialState) {
             setIsLoading(false)
             setData(res.data)
             setTypes(res.data.types[0].type.name)
+            
         })
         .catch((erro)=>{
             setIsLoading(false)
@@ -25,7 +27,7 @@ export function useRequestData(url, initialState) {
     }
     useEffect(() => {       
             getData()       
-    }, )
+    },[] )
     
-    return [data, types ,isLoading, error]
+    return [data,types ,stat,isLoading, error]
 }

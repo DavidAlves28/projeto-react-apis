@@ -2,16 +2,19 @@ import { Heading, Modal, ModalBody, ModalContent, ModalOverlay } from "@chakra-u
 import { useContext } from "react"
 import { GlobalContext } from "../../GlobalContext/GlobalContext"
 import { ContainerHome } from "../../Pages/Home/style"
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export default function ModalSimple() {
   const context = useContext(GlobalContext);
-  const {id} = useParams()
+  // const { id } = useParams()
+  // const [data] = useRequestData(`${BASE_URL}/pokemon/${id}`, {})
   const location = useLocation()
   const { isOpen, onClose, setOpenModal } = context;
   if (onClose === true) {
     setOpenModal(false)
   }
+
+
   return (
     <ContainerHome    >
 
@@ -19,8 +22,11 @@ export default function ModalSimple() {
       <Modal onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent w={'451px'} h={'222'}>
-          <ModalBody display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'center'} >
-            {location.pathname === '/pokedex' || location.pathname === `/details/${id}` ? ( <>
+          <ModalBody display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'center'} >     
+
+
+
+            {location.pathname !== '/' ? ( <>
 
               <Heading fontSize={'48px'} fontWeight={'700'} textAlign={'center'} >Oh,no!</Heading>
             <Heading fontSize={'16px'} textAlign={'center'} >

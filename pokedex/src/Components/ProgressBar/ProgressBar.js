@@ -4,7 +4,7 @@ import styled from "styled-components";
 const ProgressBar = (props) => {  
     const {completed} = props   
 
-    const bgColor = completed < 50 ? "#FF7C2D" : completed < 80 ? "#FFDD69" : "green" 
+    const bg = completed < 50 ? "#FF7C2D" : completed < 80 ? "#FFDD69" : "green" 
 
     const ContainerProgress = styled.div`
         width: 100%;
@@ -22,7 +22,7 @@ const ProgressBar = (props) => {
         min-width: 0;
         max-width: 100%;
         width: ${completed}%;
-        background-color: ${bgColor};opacity:0.75;
+        background-color: ${bg};opacity:0.75;
         border-radius: 3px;
         text-align: 'right';      `
       

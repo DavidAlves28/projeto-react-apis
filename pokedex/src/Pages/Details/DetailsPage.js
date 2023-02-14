@@ -1,4 +1,4 @@
-import { Box, Button, Container, Flex, Grid, Heading, Image, Img, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Grid, Heading, Image, Img, Progress, Stack, Text } from "@chakra-ui/react";
 import HeaderSimple from "../../Components/Header";
 import { CardDetails, CardTypes, ContainerDetails, ContainerHome, ContainerInfoPokemon, } from "./style";
 import { useParams } from 'react-router-dom';
@@ -69,10 +69,12 @@ export default function DetailsPage() {
               color='black'
             >
               <Text fontSize='28px' fontWeight='700' padding='10px 18px'>Base Stats</Text>
-              {data.stats?.map((stat) => {
+              <>
 
-                return (
-                  <>
+              {data.stats?.map((stat) => {
+                  
+                return (               
+                    <Container  >
 
                     <Flex key={stat.stat.name}>
                       <Grid
@@ -96,9 +98,11 @@ export default function DetailsPage() {
                       border='0.5px solid #f0f0f1'
                       margin='0 20px'
                     ></Flex>
-                  </>
+                    </Container>
+                  
                 )
               })}
+              </>
               <Grid
                 width='300px'
                 display='grid'
@@ -135,7 +139,7 @@ export default function DetailsPage() {
               <Heading >{data.name}</Heading>
               <CardTypes>
                 {data.types?.map((type) => {
-                  return <Img key={type.id} src={getTypes(type.type.name)} />
+                  return <Img key={type.type.name} src={getTypes(type.type.name)} />
                 })}
               </CardTypes>
             </ContainerInfoPokemon>
@@ -160,10 +164,11 @@ export default function DetailsPage() {
             >
             <Text fontSize='24px' fontWeight='700'>Moves:</Text>
              {data.moves?.filter((move,index)=>index < 4)
-             .map((move)=>{
+             .map((move)=>{              
               return (
-                
-                <Button key={move.move.name}
+                <Stack key={move.move.url} >
+
+                <Button 
                   width='fit-content'
                 height='37px'
                 bg='#ECECEC'
@@ -171,6 +176,7 @@ export default function DetailsPage() {
                 borderRadius='12px'>
                   {move.move.name}
                 </Button>
+                </Stack>
                
               )
              })}    
