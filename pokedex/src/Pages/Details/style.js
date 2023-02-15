@@ -1,25 +1,14 @@
 import styled from "styled-components"
 import pokebola from '../../assets/imagem/pngwing2.png'
 
-export const ContainerHome = styled.main`
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-min-height: 100vh;
-`
+
 export const ContainerDetails = styled.section`
 background-image: url(${pokebola});
 background-repeat: no-repeat ;
 background-position:  end;
 background-size: 80%; 
 background-color: #5E5E5E;
-min-width: 100vw;
-min-height: 80vh;
-left: 0px;
-top: 0px;
-
 `
-
 export const CardDetails = styled.div`
     width: 50%;
     display: flex;

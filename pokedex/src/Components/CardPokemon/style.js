@@ -12,20 +12,20 @@ export const CardPokemon = styled.section`
 `
 
 export const ContainerPoke = styled.div`
-  padding: 10px;
+  padding: 15px;
   min-width: 400px;
   max-width: 440px;
-  min-height: 210px;
-  left: 0;
-  top: 0;
+  min-height: 210px; 
   background-color: ${(props) => props.color};
   border-radius: 12px;
   display: flex;
-    flex-wrap: wrap;
+  flex-wrap: wrap;
   flex-direction:column;
   position: relative;
-  margin: 30px;
+  margin: 12px;
+  /* gap: 3px; */
   color: #ffffff;
+  
 `;
 
 export const PokemonNumber = styled.p`

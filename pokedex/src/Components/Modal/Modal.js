@@ -5,14 +5,9 @@ import { ContainerHome } from "../../Pages/Home/style"
 import { useLocation } from 'react-router-dom';
 
 export default function ModalSimple() {
-  const context = useContext(GlobalContext);
-  // const { id } = useParams()
-  // const [data] = useRequestData(`${BASE_URL}/pokemon/${id}`, {})
   const location = useLocation()
-  const { isOpen, onClose, setOpenModal } = context;
-  if (onClose === true) {
-    setOpenModal(false)
-  }
+  const context = useContext(GlobalContext);
+  const { isOpen, onClose } = context;
 
 
   return (

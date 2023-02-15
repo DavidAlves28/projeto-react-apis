@@ -1,6 +1,6 @@
-import { Box, Button, Container, Flex, Grid, Heading, Image, Img, Progress, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, Grid, Heading, Image, Img, Stack, Text } from "@chakra-ui/react";
 import HeaderSimple from "../../Components/Header";
-import { CardDetails, CardTypes, ContainerDetails, ContainerHome, ContainerInfoPokemon, } from "./style";
+import { CardDetails, CardTypes, ContainerDetails, ContainerInfoPokemon, } from "./style";
 import { useParams } from 'react-router-dom';
 import { useRequestData } from './../../hooks/useRequestData';
 import { BASE_URL } from './../../Constants/BASE_URL';
@@ -15,30 +15,31 @@ import ModalSimple from "../../Components/Modal/Modal";
 
 export default function DetailsPage() {
   const context = useContext(GlobalContext)
-  const { isOpen} = context 
+  const { isOpen } = context
   // retorna id(name) do pokemon,   
-  const { id} = useParams()
+  const { id } = useParams()
   const [data, types,] = useRequestData(`${BASE_URL}/pokemon/${id}`, {})
 
   return (
-    <ContainerHome  >
+    <Container display={'flex'}
+      flexDir={'column'}
+      justifyContent={'space-between'}
+      minW={'100vw'}
+    >
       <HeaderSimple />
       {isOpen && <ModalSimple />}
       <ContainerDetails key={data.id} >
-        <Heading ml={'2%'} mt={'5%'}  mb={'3%'} size={'2xl'} color={'#fff'}>Detalhes</Heading>
+        <Heading ml={'5%'} mt={'5%'} mb={'3%'} size={'2xl'} color={'#fff'}>Detalhes</Heading>
         <Container
           display={'flex'}
           borderRadius={'38px'}
           maxW={'90%'}
           h={'663px'}
-          top={'0px'}
-          left={'0px'}
           bg={types && getColors(types)}
-          zIndex={3}
-          
+          mb={'20px'}
         >
-          <Flex
-            width={'50%'}
+          <Flex ml={'1.3%'}
+            maxWidth={'50%'}
             justifyContent={'center'}
             alignContent='center'
             padding='24px 0px'
@@ -47,13 +48,13 @@ export default function DetailsPage() {
               display='flex'
               flexDirection='column'
               justifyContent='space-between'>
-              <Image m={'1%'}
+              <Image
                 borderRadius='8px'
                 width='282px'
                 height='282px'
                 backgroundColor='white'
                 src={data.sprites?.["front_default"]} alt='Imagem Pokemon de Costas' />
-              <Image m={'1%'}
+              <Image
                 borderRadius='8px'
                 width='282px'
                 height='282px'
@@ -71,42 +72,39 @@ export default function DetailsPage() {
               <Text fontSize='28px' fontWeight='700' padding='10px 18px'>Base Stats</Text>
               <>
 
-              {data.stats?.map((stat) => {
-                  
-                return (               
+                {data.stats?.map((stat) => {
+
+                  return (
                     <Container  >
 
-                    <Flex key={stat.stat.name}>
-                      <Grid
-                        width='300px'
-                        display='grid'
-                        justifyItems='flex-end'
-                        alignItems='center'
-                        gridTemplateColumns='50px 50px 150px'
-                        fontFamily="'Poppins', sans-serif"
-                        fontWeight='400'
-                        padding='0 20px'
-                        columnGap='4px'
-                        fontSize='14px'                         
-                      >
-                        <Text color='gray.500' gridColumn='1/2'>{stat.stat.name}</Text>
-                        <Text justifySelf='flex-end' gridColumn='2/3'>{stat.base_stat}</Text>
-                        <ProgressBar completed={stat.base_stat}></ProgressBar>
-                      </Grid>
-                    </Flex>
-                    <Flex
-                      border='0.5px solid #f0f0f1'
-                      margin='0 20px'
-                    ></Flex>
+                      <Flex key={stat.stat.name}>
+                        <Grid
+                          minWidth='45%'
+                          display='grid'
+                          justifyItems='center'
+                          alignItems='center'
+                          gridTemplateColumns='50px 50px 150px'
+                          fontFamily="'Poppins', sans-serif"
+                          fontWeight='400'
+                          padding='0 20px'
+                          columnGap='4px'
+                          fontSize='14px'
+
+                        >
+                          <Text color='gray.500' justifySelf={'left'} gridColumn='1/2'>{stat.stat.name}</Text>
+                          <Text justifySelf='flex-end' gridColumn='2/3' >{stat.base_stat}</Text>
+                          <ProgressBar completed={stat.base_stat}></ProgressBar>
+                        </Grid>
+                      </Flex>
                     </Container>
-                  
-                )
-              })}
+
+                  )
+                })}
               </>
               <Grid
                 width='300px'
                 display='grid'
-                justifyItems='flex-end'
+                justifyItems='right'
                 alignItems='center'
                 gridTemplateColumns='50px 50px 150px'
                 fontFamily="'Poppins', sans-serif"
@@ -115,7 +113,7 @@ export default function DetailsPage() {
                 columnGap='4px'
                 fontSize='14px'
               >
-                <Text
+                <Text                 
                   color='gray.500'
                 >Total</Text>
                 <Text fontWeight='700'>{
@@ -124,19 +122,15 @@ export default function DetailsPage() {
                   }, 0)
                 }</Text>
               </Grid>
-              <Flex
-                border='0.5px solid #f0f0f1'
-                margin='0 20px'
-              ></Flex>
             </Box>
           </Flex>
           <CardDetails>
             <ContainerInfoPokemon>
               {data.id < 10 ?
-                <Heading as='h3' size={'sm'}>#0{data.id}</Heading> :
-                <Heading as='h3' size={'sm'}>#{data.id}</Heading>
+                <Heading as='h3' color={'#fff'} size={'sm'}># 0{data.id}</Heading> :
+                <Heading as='h3' color={'#fff'} size={'sm'}># {data.id}</Heading>
               }
-              <Heading >{data.name}</Heading>
+              <Heading color={'#fff'} >{data.name}</Heading>
               <CardTypes>
                 {data.types?.map((type) => {
                   return <Img key={type.type.name} src={getTypes(type.type.name)} />
@@ -162,34 +156,33 @@ export default function DetailsPage() {
               gap='20px'
               padding='18px 18px'
             >
-            <Text fontSize='24px' fontWeight='700'>Moves:</Text>
-             {data.moves?.filter((move,index)=>index < 4)
-             .map((move)=>{              
-              return (
-                <Stack key={move.move.url} >
+              <Text fontSize='24px' fontWeight='700'>Moves:</Text>
+              {data.moves?.filter((move, index) => index < 4)
+                .map((move) => {
+                  return (
+                    <Stack key={move.move.url} >
 
-                <Button 
-                  width='fit-content'
-                height='37px'
-                bg='#ECECEC'
-                border='1px dashed rgba(0, 0, 0, 0.14)'
-                borderRadius='12px'>
-                  {move.move.name}
-                </Button>
-                </Stack>
-               
-              )
-             })}    
+                      <Button
+                        width='fit-content'
+                        height='37px'
+                        bg='#ECECEC'
+                        border='1px dashed rgba(0, 0, 0, 0.14)'
+                        borderRadius='12px'>
+                        {move.move.name}
+                      </Button>
+                    </Stack>
+
+                  )
+                })}
             </Flex>
           </CardDetails>
-        </Container>     
+        </Container>
       </ContainerDetails>
 
 
 
-    </ContainerHome>
+    </Container>
 
   )
 }
 
-    

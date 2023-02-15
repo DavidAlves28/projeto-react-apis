@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes} from 'react-router-dom'
 import DetailsPage from '../Pages/Details/DetailsPage'
 import HomePage from '../Pages/Home/HomePage'
-import ErrorPage from '../Pages/Error'
+import ErrorPage from '../Pages/ErrorPage/Error'
 import PokedexPage from '../Pages/Pokedex/Pokedex'
 
 export default function Router (){
