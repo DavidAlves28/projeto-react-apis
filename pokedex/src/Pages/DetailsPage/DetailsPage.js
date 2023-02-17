@@ -12,60 +12,67 @@ import { useContext } from "react";
 import ModalSimple from "../../Components/Modal/Modal";
 
 
-
 export default function DetailsPage() {
-  const context = useContext(GlobalContext)
-  const { isOpen } = context
-  // retorna id(name) do pokemon,   
   const { id } = useParams()
-  const [data, types,] = useRequestData(`${BASE_URL}/pokemon/${id}`, {})
+  const context = useContext(GlobalContext)
+    // import dos dados da GlobalState
+  const { isOpen } = context
+  const [data, types] = useRequestData(`${BASE_URL}/pokemon/${id}`, {})
 
   return (
     <Container display={'flex'}
       flexDir={'column'}
       justifyContent={'space-between'}
-      minW={'100vw'}
+      minW={'96vw'}
+
     >
       <HeaderSimple />
+      {/* Curto circuito para mostra o Modal */}
       {isOpen && <ModalSimple />}
+
       <ContainerDetails key={data.id} >
+      
         <Heading ml={'5%'} mt={'5%'} mb={'3%'} size={'2xl'} color={'#fff'}>Detalhes</Heading>
         <Container
           display={'flex'}
           borderRadius={'38px'}
-          maxW={'90%'}
-          h={'663px'}
+          minW={'95%'}
+          maxH={'100%'}
           bg={types && getColors(types)}
           mb={'20px'}
+          gap={'1%'}
         >
           <Flex ml={'1.3%'}
-            maxWidth={'50%'}
-            justifyContent={'center'}
+            justifyContent={'flex-start'}
             alignContent='center'
             padding='24px 0px'
-            gap={'5%'}>
+            gap={'3%'}
+            w={'60%'}
+            
+          >
             <Box
               display='flex'
               flexDirection='column'
-              justifyContent='space-between'>
+              justifyContent='space-between'              
+              h={'30%'}
+              w={'30%'}
+              gap={'2%'}
+            >
               <Image
-                borderRadius='8px'
-                width='282px'
-                height='282px'
+               
+                borderRadius='8px'               
                 backgroundColor='white'
                 src={data.sprites?.["front_default"]} alt='Imagem Pokemon de Costas' />
               <Image
                 borderRadius='8px'
-                width='282px'
-                height='282px'
+                
                 backgroundColor='white'
                 src={data.sprites?.["back_default"]} alt='Imagem Pokemon de Frente' />
             </Box>
             <Box
-
               backgroundColor='white'
-              width='343px'
-              minH='100%'
+              minH={'10%'}
+              minW={'20%'}
               borderRadius='12px'
               color='black'
             >
@@ -73,15 +80,13 @@ export default function DetailsPage() {
               <>
 
                 {data.stats?.map((stat) => {
-
                   return (
                     <Container  >
-
                       <Flex key={stat.stat.name}>
                         <Grid
                           minWidth='45%'
                           display='grid'
-                          justifyItems='center'
+                          justifyItems='left'
                           alignItems='center'
                           gridTemplateColumns='50px 50px 150px'
                           fontFamily="'Poppins', sans-serif"
@@ -113,7 +118,7 @@ export default function DetailsPage() {
                 columnGap='4px'
                 fontSize='14px'
               >
-                <Text                 
+                <Text
                   color='gray.500'
                 >Total</Text>
                 <Text fontWeight='700'>{
@@ -125,7 +130,7 @@ export default function DetailsPage() {
             </Box>
           </Flex>
           <CardDetails>
-            <ContainerInfoPokemon>
+            <ContainerInfoPokemon >
               {data.id < 10 ?
                 <Heading as='h3' color={'#fff'} size={'sm'}># 0{data.id}</Heading> :
                 <Heading as='h3' color={'#fff'} size={'sm'}># {data.id}</Heading>
@@ -139,29 +144,29 @@ export default function DetailsPage() {
             </ContainerInfoPokemon>
             <Image
               position='absolute'
-              width='270px'
-              height='270px'
+              minW={'30%'}
+              maxH={'50%'}
               right='40px'
               top='-130px'
               src={data.sprites?.other["official-artwork"].front_default} alt='Imagem Pokémon' />
             <Flex
               backgroundColor='#FFFFFF'
               borderRadius='8px'
-              width='292px'
-              height='453px'
+              minW={'15%'}
+              minH={'10%'}
               color='black'
               position='absolute'
               bottom='24px'
               flexDirection='column'
+              justifyContent={'left'}
               gap='20px'
               padding='18px 18px'
             >
-              <Text fontSize='24px' fontWeight='700'>Moves:</Text>
+              <Text minW={'16vw'} minH={'16%'} fontSize='24px' fontWeight='700'>Moves:</Text>
               {data.moves?.filter((move, index) => index < 4)
                 .map((move) => {
                   return (
                     <Stack key={move.move.url} >
-
                       <Button
                         width='fit-content'
                         height='37px'
@@ -178,9 +183,6 @@ export default function DetailsPage() {
           </CardDetails>
         </Container>
       </ContainerDetails>
-
-
-
     </Container>
 
   )

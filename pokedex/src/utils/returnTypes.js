@@ -17,6 +17,7 @@ import rock from "../assets/pokemon-types/rock.png";
 import steel from "../assets/pokemon-types/steel.png";
 import water from '../assets/pokemon-types/water.png';
 
+// Função retorna a imagem dos tipos do pokemon!
   export const getTypes = (type) => {
     switch(type) {
       case "bug":

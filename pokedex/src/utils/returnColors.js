@@ -1,4 +1,4 @@
-
+// função retonr a cor do cards de acordo com o type com o pokemon!
 export const getColors = (type) => {
     switch(type) {
       case "bug":

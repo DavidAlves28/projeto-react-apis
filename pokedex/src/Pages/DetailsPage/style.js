@@ -8,11 +8,14 @@ background-repeat: no-repeat ;
 background-position:  end;
 background-size: 80%; 
 background-color: #5E5E5E;
+min-height: 80vh;
 `
 export const CardDetails = styled.div`
     width: 50%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: top ;
     position: relative;
     background-image: url(${pokebola});
     background-repeat: no-repeat; 
@@ -27,7 +30,7 @@ export const CardDetails = styled.div`
         font-weight: 700;
         font-family: 'Inter', sans-serif;
         line-height: 19px;
-        position: absolute;
+        position: relative;
         height: 19px;
         top: 25px;
         font-style: normal;
@@ -54,7 +57,7 @@ export const CardTypes = styled.div`
 export const ContainerInfoPokemon = styled.div`
         width: 100%;
         height: 20vh;
-        display: flex;
+        display: flex;;
         margin-top: 2.5vh;
         position: relative;
         h3{
