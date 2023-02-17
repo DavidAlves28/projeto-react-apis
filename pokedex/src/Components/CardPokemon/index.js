@@ -25,17 +25,14 @@ import { useRequestData } from "../../hooks/useRequestData";
 export default function Card(props) {
   // location é usado para rotornar o nome da page para redenrizar os buttons do card.
   const location = useLocation()
-
   // navigate para enviar o parametro da função para ir para páginas.
   const navigate = useNavigate()
-
   // GlobalContext
   const context = useContext(GlobalContext)
   //  context 
   const { addPokedex, removePokemon, isLoading} = context;
   // props retorna pokemon, que será passado como parâmetro no hook useRequestData  
   const { pokemon } = props ;
-
   
   // Custom Hook que retorna os dados do pokemons.
   const [data, types,] = useRequestData(`${BASE_URL}/pokemon/${pokemon.name}`, {})

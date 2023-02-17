@@ -7,8 +7,7 @@ import {
     useColorModeValue,
     VisuallyHidden,
   } from '@chakra-ui/react';
-  import { FaGithub, FaInstagram, FaLinkedin } from 'react-icons/fa';
-  
+  import { FaGithub,  FaLinkedin } from 'react-icons/fa';  
   
   const SocialButton = ({
     children,
@@ -53,19 +52,15 @@ import {
           spacing={4}
           justify={{ base: 'center', md: 'space-between' }}
           align={{ base: 'center', md: 'center' }}
-          >
-             {/* <ColorMode /> */}
+          >            
           <Text>© 2023 David Alves Costa . </Text>
           <Stack direction={'row'} spacing={6}>
             <SocialButton label={'Linkedin'}   href={'https://www.linkedin.com/in/david-alves-costa-7a2b90145/'}  >
               <FaLinkedin />
             </SocialButton>
-            <SocialButton label={'Github'} href={'#'}>
+            <SocialButton label={'Github'} href={'https://github.com/DavidAlves28'}>
               <FaGithub />
-            </SocialButton>
-            <SocialButton label={'Instagram'} href={'#'}>
-              <FaInstagram />
-            </SocialButton>
+            </SocialButton>           
           </Stack>
         </Container>
       </Box>

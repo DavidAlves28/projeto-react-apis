@@ -11,6 +11,7 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 export default function HomePage() {
     const context = useContext(GlobalContext)
+    // import dos dados da GlobalState
     const { filterPokedex,isOpen,nextPokemons,previousPokemons} = context;
 
     return (

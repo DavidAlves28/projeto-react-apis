@@ -12,11 +12,11 @@ import ModalSimple from "../../Components/Modal/Modal";
 export default function PokedexPage() {
     // Context  retorna pokedex! 
     const context = useContext(GlobalContext);
+    // import dos dados da GlobalState
     const { pokedex, isOpen } = context;
 
-
     return (
-        <ContainerHome    >
+        <ContainerHome>
             <HeaderSimple />
             <Flex minH={'100vh'}   background={'#5E5E5E'} flexDir={'column'} >
                 <Heading m={'60px 110px 40px '} color={'#ffff'} >Meus Pokemons</Heading>
@@ -35,8 +35,7 @@ export default function PokedexPage() {
                         pokemon={pokemon} />
                 })}
             </Flex>
-            </Flex>
-            
+            </Flex>            
             <FooterSimple />
             {isOpen && <ModalSimple />}
         </ContainerHome>

@@ -6,12 +6,13 @@ import { useDisclosure } from "@chakra-ui/react";
 
 
 export default function GlobalState(props) {
-    // ARRAY DOS POKEMONS DA API
+    // Estado para  lista de pokemons.
     const [listaPokemon, setListaPokemon] = useState([])
-    // ARRAY PARA POKEMONS DA POKEDEX ADD
+    // Estado para Pokedex
     const [pokedex, setPokedex] = useState([])
     // Detalhes do Pokemon
-    const [details, setDetails] = useState({})        
+    const [details, setDetails] = useState({})   
+
     // Controlador do Modal para adicionar ou remover pokemon
     const { isOpen, onOpen, onClose } = useDisclosure()   
     
@@ -19,8 +20,7 @@ export default function GlobalState(props) {
     const [isLoading, setIsLoading] = useState(true)
     
     // Contador para Paginas
-    const [page, setPage] = useState(0)
-    
+    const [page, setPage] = useState(0)  
     
 
     // Consumo Api pega os nomes e url dos 20 primeiros pokemons!
@@ -55,7 +55,6 @@ export default function GlobalState(props) {
             )
         )
 
-
     //  Adiciona pokemon a pokedex , verifica duplicidade!
     const addPokedex = (newPokemon) => {
         const verificarPokemon = pokedex.find((pokemon) =>
@@ -76,16 +75,7 @@ export default function GlobalState(props) {
         setPokedex(newPokedex)
         onOpen() // Open Modal
 
-    }
-    //  Remove pokemon da pokedex pela page Details
-    const removePokemonDetails = (deletePokemon) => {
-        const newPokedex = pokedex.filter((pokemonInPokedex) =>
-            pokemonInPokedex.name !== deletePokemon
-        )
-        setPokedex(newPokedex)
-        onOpen() // Open Modal
-    }
-
+    } 
     // Button para ver detalhes do pokemons
     const showDetails = (newPokemon) => {
         const verificarPokemon = pokedex.find((pokemon) =>
@@ -103,6 +93,7 @@ export default function GlobalState(props) {
         setIsLoading(false)
     }, [page])
 
+    // exportação de estados e funções.
     const context = {
         listaPokemon,
         pokedex,
@@ -117,7 +108,6 @@ export default function GlobalState(props) {
         onOpen,
         isOpen,
         onClose,
-        removePokemonDetails,
         nextPokemons,
         previousPokemons
 
