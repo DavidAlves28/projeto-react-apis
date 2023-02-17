@@ -13,7 +13,7 @@ O Projeto React e APIs é um site de pokémons que possui três páginas: Home, 
 
 <a id="oprojeto"></a>
 # O Projeto  
-### Deploy : 
+### Deploy :  https://projeto-react-apis-mu.vercel.app/
  ![pokedex](./pokedex/src/assets/imgReadme/pokedexGif.gif)
 
 #### O Projeto tem como objetivo implementar conteúdos apresentados  durante o Bootcamp da Labenu ,seguindo um  [design](https://www.figma.com/file/KseyA2Ofghiek2Cy3ZaDre/Poked%C3%A9x?t=AEi3zEmWmarf1FbP-0 "design") proposto e  consumindo API  .Tecnlogias utilizadas :
