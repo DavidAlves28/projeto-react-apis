@@ -55,7 +55,7 @@ import {
           >            
           <Text>© 2023 David Alves Costa . </Text>
           <Stack direction={'row'} spacing={6}>
-            <SocialButton label={'Linkedin'}   href={'https://www.linkedin.com/in/david-alves-costa-7a2b90145/'}  >
+            <SocialButton label={'Linkedin'}   href={'https://www.linkedin.com/in/david-dev-full/'}  >
               <FaLinkedin />
             </SocialButton>
             <SocialButton label={'Github'} href={'https://github.com/DavidAlves28'}>
